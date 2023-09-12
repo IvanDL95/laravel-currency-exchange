@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -35,6 +37,14 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+        });
+
+        $this->bind('timestamp', function($timestamp) {
+            try {
+                return Carbon::parse($timestamp);
+            } catch (\Throwable $th) {
+                throw new BadRequestHttpException("Timestamp format is invalid. Use ISO 8601 or another valid format");
+            }
         });
     }
 }
