@@ -31,4 +31,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'exchange' => [
+        'url' => env('EXCHANGE_SERVICE_URL', 'https://cex.io/api/last_price'),
+    ],
 ];
