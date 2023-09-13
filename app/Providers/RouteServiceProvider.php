@@ -46,5 +46,21 @@ class RouteServiceProvider extends ServiceProvider
                 throw new BadRequestHttpException("Timestamp format is invalid. Use ISO 8601 or another valid format");
             }
         });
+
+        $this->bind('timestamp1', function($timestamp) {
+            try {
+                return Carbon::parse($timestamp);
+            } catch (\Throwable $th) {
+                throw new BadRequestHttpException("Timestamp format is invalid. Use ISO 8601 or another valid format");
+            }
+        });
+
+        $this->bind('timestamp2', function($timestamp) {
+            try {
+                return Carbon::parse($timestamp);
+            } catch (\Throwable $th) {
+                throw new BadRequestHttpException("Timestamp format is invalid. Use ISO 8601 or another valid format");
+            }
+        });
     }
 }
